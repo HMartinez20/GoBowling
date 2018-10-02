@@ -11,10 +11,7 @@ h1{
 }
 
 body{
-   padding-left: 30%;
-   padding-right: 30%;
-   display: inline-block;
-   background-color: dimgrey;
+   height: 100%;
    font-family: 'Courier', 'Courier new', serif;
 }
 
@@ -23,4 +20,13 @@ body{
    border-color: black;
    color: brown;
    font-family: 'Courier', 'Courier new', serif;
+}
+html {
+    height: 100%;
+}
+
+#content {
+    background-color: #333538;
+    height: 100%;
+    padding: 10px;
 }
