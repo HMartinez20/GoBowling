@@ -16,13 +16,24 @@
 <body>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">Cheat Sheets</h1>
+            <h1 class="display-4">Programming Information</h1>
             <p class="lead">The start of something great</p>
         </div>
     </div>
     <div id="content" class="container">
-        <button type="button" id="button" onclick="displayHTMLCheat();" class="btn btn-dark"> Click to display HTML Cheat Sheet! </button>
-        <img id="htmlCheat" src="/images/Bootstrap.jpg" class="img-fluid" alt="Responsive image">
+        <h3>Tips</h3>
+        <ul>
+            <li><button type="button" id="button" onclick="displayHTMLCheat();" class="btn btn-dark btnTips"> HTML Cheat Sheet </button>
+        <img id="htmlCheat" src="/images/Bootstrap.jpg" class="img-fluid" alt="Responsive image" hidden>
+            </li>
+            <li><button type="button" id="button" onclick="displayHTMLCheat();" class="btn btn-dark btnTips"> Productivity Graph </button>
+        <img id="productivityGraph" src="/images/ImportantGraph.png" class="img-fluid" alt="Responsive image" hidden>
+            </li>
+            <li><button type="button" id="button" onclick="displayHTMLCheat();" class="btn btn-dark btnTips"> Password Tips </button>
+        <img id="passTips" src="/images/PasswordTips.png" class="img-fluid" alt="Responsive image" hidden>
+            </li>
+        </ul>
+        
     </div>
 </body>
 </html>

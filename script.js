@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    $("#htmlCheat").hide();
+    //$("#htmlCheat").hide();
+    $(".btnTips").click(function(event) {
+        //event.target.find("img").show();
+        alert("Test");
+    });
 });
-function displayHTMLCheat() {
-    $("#htmlCheat").show();
-}
