@@ -1,5 +1,5 @@
 <?php 
-header( 'Location: /main.php' );
+header( 'Location: /GoBowling/main.php' );
 ?>
 <!DOCTYPE html>
 <html>
