@@ -1,4 +1,6 @@
-<?php ?>
+<?php 
+header( 'Location: /main.php' );
+?>
 <!DOCTYPE html>
 <html>
   <body>
