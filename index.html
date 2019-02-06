@@ -8,6 +8,7 @@
    <body>
       <button id="button" onclick="window.location='https://hmartinez20.github.io/GoBowling/main.html'"> Button 1 </button>
       <div id="demo"><?php echo 'test';?></div>
+      <button onclick="writeData(25, 'test', 'test', '');"></button>
    </body>
    <form action="/middleManPage.php" method="POST">
       <input type="submit" value="mainpage">
@@ -25,4 +26,12 @@
     messagingSenderId: "523257812980"
   };
   firebase.initializeApp(config);
+</script>
+<script>
+function writeData(userId, name, email) {
+  firebase.database().ref('users/' + userId).set({
+    username: name,
+    email: email,
+  });
+}
 </script>
