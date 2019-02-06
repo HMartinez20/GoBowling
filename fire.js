@@ -1,5 +1,4 @@
-
-<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+document.write('<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -12,3 +11,4 @@
   };
   firebase.initializeApp(config);
 </script>
+');
