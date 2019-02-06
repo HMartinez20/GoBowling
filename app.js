@@ -19,3 +19,5 @@ const dbRefObject = firebase.database().ref().child('users');
 // Sync object changes
 dbRefObject.on('value', snap => console.log(snap.val()));
     // snap - see updates on object everytime it is changed
+
+console.log('test');
