@@ -9,6 +9,9 @@ var config = {
 };
 firebase.initializeApp(config);
 
+// Reference to the database service
+var database = firebase.database();
+
 // Get  elements
 const preObject = document.getElementById('object');
 
