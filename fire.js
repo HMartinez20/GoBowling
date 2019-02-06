@@ -1,4 +1,4 @@
-document.write('<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -11,4 +11,3 @@ document.write('<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.j
   };
   firebase.initializeApp(config);
 </script>
-');
