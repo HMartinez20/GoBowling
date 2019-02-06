@@ -10,10 +10,10 @@ var config = {
 firebase.initializeApp(config);
 
 // Get  elements
-const preObject = document.getElementById('users');
+const preObject = document.getElementById('object');
 
 // Create references
-const dbRefObject = firebase.database().ref().child('users');
+const dbRefObject = firebase.database().ref().child('object');
     // ref() - refers to root of database: gobowling-55686/___
 
 // Sync object changes
