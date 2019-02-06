@@ -12,15 +12,21 @@ firebase.initializeApp(config);
 // Reference to the database service
 var database = firebase.database();
 
-// Get  elements
-const preObject = document.getElementById('object');
+function writeNewUser() {
+  // A post entry.
+  var postData = {
+    firstName: 'Jane',
+    middleName: 'Doe',
+    LastName: 'Smith',
+    starCount: 0,
+  };
 
-// Create references
-const dbRefObject = firebase.database().ref().child('object');
-    // ref() - refers to root of database: gobowling-55686/___
+  // Get a key for a new Post.
+  var newPostKey = firebase.database().ref().child('users').push().key;
 
-// Sync object changes
-dbRefObject.on('value', snap => console.log(snap.val()));
-    // snap - see updates on object everytime it is changed
+  // Write new user data
+  var updates = {};
+  updates['/users/' + newPostKey] = postData;
 
-console.log('test');
+  return firebase.database().ref().update(updates);
+}
