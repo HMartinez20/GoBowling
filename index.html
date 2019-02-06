@@ -8,31 +8,9 @@
    </head>
    <body>
       <button id="button" onclick="window.location='https://hmartinez20.github.io/GoBowling/main.html'"> Button 1 </button>
-      <div id="demo"><?php echo 'test';?></div>
-      <button onclick="writeData(0, 'test', 'test');"></button>
+      <pre id="users">
+         
+      </pre>
    </body>
-   <form action="/middleManPage.php" method="POST">
-      <input type="submit" value="mainpage">
-   </form>
+   
 </html>
-<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBqm2UWSLit27_pLmEd6nn_WX41lzSRAYU",
-    authDomain: "gobowling-55686.firebaseapp.com",
-    databaseURL: "https://gobowling-55686.firebaseio.com",
-    projectId: "gobowling-55686",
-    storageBucket: "gobowling-55686.appspot.com",
-    messagingSenderId: "523257812980"
-  };
-  firebase.initializeApp(config);
-</script>
-<script>
-function writeData(userId, name, email) {
-  firebase.database().ref('users/' + userId).set({
-    username: name,
-    email: email,
-  });
-}
-</script>
