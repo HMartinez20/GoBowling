@@ -8,3 +8,14 @@ var config = {
   messagingSenderId: "523257812980"
 };
 firebase.initializeApp(config);
+
+// Get  elements
+const preObject = document.getElementById('users');
+
+// Create references
+const dbRefObject = firebase.database().ref().child('users');
+    // ref() - refers to root of database: gobowling-55686/___
+
+// Sync object changes
+dbRefObject.on('value', snap => console.log(snap.val()));
+    // snap - see updates on object everytime it is changed
