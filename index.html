@@ -19,11 +19,10 @@ title: Home
       
       var usersRef = firebase.database().ref("users/");
       function writeNewUser(){
-         usersRef.set({
-            Jane:{
-               number: 1,
-               age: 30
-            }
+         usersRef.push({
+            name: "Jane",
+            number: 1,
+            age: 30
          });
       }
    </script>
