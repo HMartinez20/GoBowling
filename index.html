@@ -6,29 +6,17 @@ title: Home
 <html>
    <head>
       {% include header.html %}
-      <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+      {% include fire.html %}
       <link rel = "stylesheet" href = "webstyle.css" >
       <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'>
    </head>
    <body>
-   <h1>{{ page.title }}</h1>
+   <h1> {{ page.title }} </h1>
    <button id="button" onclick="window.location='https://hmartinez20.github.io/GoBowling/main.html'"> Button 1 </button>
    <button onclick="writeNewUser();">Add New User</button>
    <button type="button" class="btn btn-primary">Bootstrap Button</button>
    <pre id="object"></pre>
    </body>
-   <script>
-      // Initialize Firebase
-      var config = {
-         apiKey: "AIzaSyBqm2UWSLit27_pLmEd6nn_WX41lzSRAYU",
-         authDomain: "gobowling-55686.firebaseapp.com",
-         databaseURL: "https://gobowling-55686.firebaseio.com",
-         projectId: "gobowling-55686",
-         storageBucket: "gobowling-55686.appspot.com",
-         messagingSenderId: "523257812980"
-      };
-      firebase.initializeApp(config);
-   </script>
    <script type="text/javascript">
       console.log("test");
       console.log(firebase);
