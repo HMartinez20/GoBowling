@@ -17,6 +17,7 @@ title: Home
       console.log("test");
       console.log(firebase);
       
+      var usersRef = firebase.database().ref("users/");
       function writeNewUser(){
          usersRef.set({
             Jane:{
