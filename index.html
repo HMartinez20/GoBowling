@@ -27,7 +27,7 @@ title: Home
          </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-primary" 
-                   onclick="newSignUp(document.getElementById("user").value,document.getElementById("pass").value);">Save changes</button>
+                   onclick="newSignUp("hmartinez21@mail.stmarytx.edu", "testPass");">Save changes</button>
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          </div>
        </div>
@@ -39,10 +39,6 @@ title: Home
          console.log("in new sign up function...");
          console.log(user," ",pass);
          firebase.auth().createUserWithEmailAndPassword(user, pass).catch(function(error) {
-            console.log(error.code);
-            console.log(error.message);
-         });
-         firebase.auth().signInWithEmailAndPassword(user, pass).catch(function(error) {
             console.log(error.code);
             console.log(error.message);
          });
