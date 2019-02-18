@@ -26,15 +26,18 @@ title: Home
             <input type="text" id="pass">New Password</input>
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-primary" onclick="newSignUp($("#user").val(), $("#pass").val());">Save changes</button>
+           <button type="button" class="btn btn-primary" 
+                   onclick="">Save changes</button>
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          </div>
        </div>
       </div>
    </div>
    <script type="text/javascript">
+      console.log(document.getElementById("user").val);
       function newSignUp(user, pass){
          console.log("in new sign up function...");
+         console.log(user," ",pass);
          firebase.auth().createUserWithEmailAndPassword(user, pass).catch(function(error) {
             console.log(error.code);
             console.log(error.message);
