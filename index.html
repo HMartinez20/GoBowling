@@ -51,8 +51,8 @@ title: Home
       const storageService = firebase.storage(); // Reference to storage service
       const storageRef = storageService.ref();  // Reference to WHERE the image will be stored
       
-      document.querySelector('.file-select).addEventListener('change', handleFileUploadChange());
-      document.querySelector('.file-submit).addEventListener('click', handleFileUploadSubmit());        
+      document.querySelector('.file-select').addEventListener('change', handleFileUploadChange());
+      document.querySelector('.file-submit').addEventListener('click', handleFileUploadSubmit());        
       
       let selectedFile; // Tracks user selected file
       function handleFileUploadChange(e) {
