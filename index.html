@@ -15,7 +15,7 @@ title: Home
    <button class="btn btn-primary" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
    
    <div id="fileSubmit">
-     <input type="file" class="file-select" accept="image/*"/>
+     <input type="file" class="file-select" accept="image/*">
      <button class="file-submit">SUBMIT</button>
    </div>
    
@@ -52,16 +52,18 @@ title: Home
       
       const storage = firebase.storage(); // Reference to storage service
       const storageRef = storage.ref();  // Reference to WHERE the image will be stored
+      const imagesRef = storageRef.child("PostImages");
       
       document.querySelector('.file-select').addEventListener('change', handleFileUploadChange());
       document.querySelector('.file-submit').addEventListener('click', handleFileUploadSubmit());        
       
+      let selectedFile;
       function handleFileUploadChange(e) {
-        var selectedFile = e.target.files[0];
+        selectedFile = e.target.files[0];
       }
       
       function handleFileUploadSubmit(e) {
-        const uploadTask = storageRef.child(`images/${selectedFile.name}`).put(selectedFile); //create a child directory called images, and place the file inside this directory
+        const uploadTask = storageRef.child(`images/`+selectedFile).put(selectedFile); //create a child directory called images, and place the file inside this directory
         uploadTask.on('state_changed', (snapshot) => {   // "uploadTask" - makes "images" directory
         // Observe state change events such as progress, pause, and resume
         }, (error) => {
