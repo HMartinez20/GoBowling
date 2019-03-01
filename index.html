@@ -16,7 +16,7 @@ title: Home
    
    <div id="fileSubmit">
      <input type="file" class="file-select" accept="image/*">
-     <button class="file-submit">SUBMIT</button>
+     <button class="file-submit" onclick="uploadImage();">SUBMIT</button>
    </div>
    
    </body>
@@ -73,6 +73,14 @@ title: Home
         });
       }
       
+      function uploadImage(e){
+         const storage = firebase.storage(); // Reference to storage service
+         const storageRef = storage.ref();  // Reference to WHERE the image will be stored
+         
+         var img = e.target.files;
+         
+         firebase.storage().ref().put(img).then(snapshot => { console.log("Uploaded"); });
+      }
       
       var usersRef = firebase.database().ref("users/");
       function writeNewUser(){
