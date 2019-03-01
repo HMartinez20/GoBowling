@@ -53,7 +53,7 @@ title: Home
       const storage = firebase.storage(); // Reference to storage service
       const storageRef = storage.ref();  // Reference to WHERE the image will be stored
       const imagesRef = storageRef.child("PostImages");
-      
+      /*
       document.querySelector('.file-select').addEventListener('change', handleFileUploadChange());
       document.querySelector('.file-submit').addEventListener('click', handleFileUploadSubmit());        
       
@@ -72,11 +72,8 @@ title: Home
            console.log('success'); // Do something once upload is complete here
         });
       }
-      
+      */
       function uploadImage(e){
-         const storage = firebase.storage(); // Reference to storage service
-         const storageRef = storage.ref();  // Reference to WHERE the image will be stored
-         
          var img = e.target.files;
          
          firebase.storage().ref().put(img).then(snapshot => { console.log("Uploaded"); });
