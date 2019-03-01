@@ -74,7 +74,8 @@ title: Home
       }
       */
       function uploadImage(e){
-         var img = e.target.files;
+         var img = this.target.files;
+         //var img = e.target.files;
          
          firebase.storage().ref().put(img).then(snapshot => { console.log("Uploaded"); });
       }
