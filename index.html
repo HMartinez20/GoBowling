@@ -53,6 +53,7 @@ title: Home
       const storage = firebase.storage(); // Reference to storage service
       
       var fileButton = document.getElementById("file-upload");
+      //var fileSelect = document.getElementById("file-select");
       function handleFileSelect(){
          // Get file
          var file = document.getElementById("file-select").files[0];
@@ -68,85 +69,14 @@ title: Home
             function progress(snapshot){
             },
             function error(err){
+               alert(err);
             },
             function complete(){
                alert("Uploaded!");
             }
          );
       }
-      /*
-      fileButton.addEventListener('change', function(e){
-         // Get file
-         var file = e.target.files[0];
-         
-         // Create storage ref
-         const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
-         
-         // Upload File
-         var task = storageRef.put(file);
-         
-         //Upload progress
-         task.on('state_changed',
-            function progress(snapshot){
-            },
-            function error(err){
-            },
-            function complete(){
-               alert("Uploaded!");
-            }
-         );
-      });
-      */
-      var fileSelect = document.getElementById("file-select");
-      /*
-      fileSelect.addEventListener('change', function(e){
-         // Get file
-         var file = e.target.files[0];
-         
-         // Create storage ref
-         const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
-         
-         // Upload File
-         var task = storageRef.put(file);
-         
-         //Upload progress
-         task.on('state_changed',
-            function progress(snapshot){
-            },
-            function error(err){
-            },
-            function complete(){
-               alert("Uploaded!");
-            }
-         );
-      });
-      */
-      /*
-      document.querySelector('.file-submit').addEventListener('click', handleFileUploadSubmit());        
-      
-      let selectedFile;
-      function handleFileUploadChange(e) {
-        selectedFile = e.target.files[0];
-      }
-      
-      function handleFileUploadSubmit(e) {
-        const uploadTask = storageRef.child(`images/`+selectedFile).put(selectedFile); //create a child directory called images, and place the file inside this directory
-        uploadTask.on('state_changed', (snapshot) => {   // "uploadTask" - makes "images" directory
-        // Observe state change events such as progress, pause, and resume
-        }, (error) => {
-          console.log(error); // Handle unsuccessful uploads here
-        }, () => {
-           console.log('success'); // Do something once upload is complete here
-        });
-      }
-      */
-      /*function uploadImage(e){
-         var img = this.target.files;
-         //var img = e.target.files;
-         
-         firebase.storage().ref().put(img).then(snapshot => { console.log("Uploaded"); });
-      }*/
-      
+     
       var usersRef = firebase.database().ref("users/");
       function writeNewUser(){
          usersRef.push({
