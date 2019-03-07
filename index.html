@@ -53,9 +53,9 @@ title: Home
       const storage = firebase.storage(); // Reference to storage service
       
       var fileButton = document.getElementById("file-upload");
-      function handleFileSelect(e){
+      function handleFileSelect(){
          // Get file
-         var file = e.files[0];
+         var file = this;
          
          // Create storage ref
          const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
