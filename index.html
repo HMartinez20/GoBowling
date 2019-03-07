@@ -16,7 +16,7 @@ title: Home
    
    <div id="fileSubmit">
      <input type="file" value="upload" id="file-select"/>
-      <button id="file-upload" class="btn btn-info" onclick="handleFileSelect(document.getElementById("file-select").files);">Upload</button>
+      <button id="file-upload" class="btn btn-info" onclick="handleFileSelect();">Upload</button>
    </div>
    
    </body>
@@ -55,7 +55,7 @@ title: Home
       var fileButton = document.getElementById("file-upload");
       function handleFileSelect(){
          // Get file
-         var file = this;
+         var file = document.getElementById("file-select").files[0];
          
          // Create storage ref
          const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
