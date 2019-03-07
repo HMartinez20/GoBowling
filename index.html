@@ -15,8 +15,7 @@ title: Home
    <button class="btn btn-primary" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
    
    <div id="fileSubmit">
-     <input type="file" class="file-select" accept="image/*">
-     <button class="file-submit" onclick="uploadImage();">SUBMIT</button>
+     <input type="file" value="upload" id="file-select">
    </div>
    
    </body>
@@ -51,10 +50,30 @@ title: Home
       }
       
       const storage = firebase.storage(); // Reference to storage service
-      const storageRef = storage.ref();  // Reference to WHERE the image will be stored
-      const imagesRef = storageRef.child("PostImages");
+      
+      var fileButton = document.getElementById("file-select");
+      fileButton.addEventListener('change', function(e){
+         // Get file
+         var file = e.target.files[0];
+         
+         // Create storage ref
+         const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
+         
+         // Upload File
+         var task = storageRef.put(file);
+         
+         //Upload progress
+         task.on('state_changed',
+            function progress(snapshot){
+            },
+            function error(err){
+            },
+            function complete(){
+               alert("Uploaded!");
+            }
+         );
+      });
       /*
-      document.querySelector('.file-select').addEventListener('change', handleFileUploadChange());
       document.querySelector('.file-submit').addEventListener('click', handleFileUploadSubmit());        
       
       let selectedFile;
@@ -73,12 +92,12 @@ title: Home
         });
       }
       */
-      function uploadImage(e){
+      /*function uploadImage(e){
          var img = this.target.files;
          //var img = e.target.files;
          
          firebase.storage().ref().put(img).then(snapshot => { console.log("Uploaded"); });
-      }
+      }*/
       
       var usersRef = firebase.database().ref("users/");
       function writeNewUser(){
