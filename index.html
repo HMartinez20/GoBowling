@@ -15,7 +15,8 @@ title: Home
    <button class="btn btn-primary" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
    
    <div id="fileSubmit">
-     <input type="file" value="upload" id="file-select">
+     <input type="file" value="upload" id="file-select"/>
+      <button id="file-upload" class="btn btn-info" onclick="handleFileSelect(document.getElementById("file-select").files);">Upload</button>
    </div>
    
    </body>
@@ -51,8 +52,51 @@ title: Home
       
       const storage = firebase.storage(); // Reference to storage service
       
-      var fileButton = document.getElementById("file-select");
+      var fileButton = document.getElementById("file-upload");
+      function handleFileSelect(e){
+         // Get file
+         var file = e.files[0];
+         
+         // Create storage ref
+         const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
+         
+         // Upload File
+         var task = storageRef.put(file);
+         
+         //Upload progress
+         task.on('state_changed',
+            function progress(snapshot){
+            },
+            function error(err){
+            },
+            function complete(){
+               alert("Uploaded!");
+            }
+         );
+      }
       fileButton.addEventListener('change', function(e){
+         // Get file
+         var file = e.target.files[0];
+         
+         // Create storage ref
+         const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
+         
+         // Upload File
+         var task = storageRef.put(file);
+         
+         //Upload progress
+         task.on('state_changed',
+            function progress(snapshot){
+            },
+            function error(err){
+            },
+            function complete(){
+               alert("Uploaded!");
+            }
+         );
+      });
+      var fileSelect = document.getElementById("file-select");
+      fileSelect.addEventListener('change', function(e){
          // Get file
          var file = e.target.files[0];
          
