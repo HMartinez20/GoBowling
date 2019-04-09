@@ -68,11 +68,11 @@ title: Home
          var files = document.getElementById("uploadFiles");
          var tasks = [];
          
-         // Create storage ref
-         const storageRef = storage.ref('posts/');  // Reference to WHERE the image will be stored
-         
          // Add each file to storage
          for(var i = 0; i < files.files.length; i++){
+            // Create storage ref
+            const storageRef = storage.ref('posts/'+files.files[i].name);  // Reference to WHERE the image will be stored
+            
             task = storageRef.put(files.files[i], metaData);
             //fileList.push(files.files[i], metaData);
             
