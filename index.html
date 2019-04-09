@@ -70,8 +70,7 @@ title: Home
          
          // Add each file to storage
          for(var i = 0; i < fileList.files.length; i++){
-            console.log(fileList.files[i].name);
-            console.log(fileList.files.items[i].name);
+            var fileName = fileList.files[i].name;
             
             // Create storage ref
             const storageRef = storage.ref('posts/'+fileList.files[i].name);  // Reference to WHERE the image will be stored
@@ -87,7 +86,7 @@ title: Home
                   alert(err);
                },
                function complete(){
-                  alert(fileList.files.item[i].name+"\nUploaded!");
+                  alert(fileName+"\nUploaded!");
                }
             );
          }
