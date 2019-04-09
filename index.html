@@ -79,23 +79,14 @@ title: Home
      
       var usersRef = firebase.database().ref("users/");
       function writeNewUser(){
-        var myRef = firebase.database().ref("users/").push();
-        var key = myRef.key();
-        console.log(key);
-
-        var newData={
-            id: key,
-            price: "$5.00",
-            name: "test"
-         }
-
-         myRef.push(newData);
-        
-        /*usersRef.push({
+        usersRef.push({
             name: "Jane",
             number: 1,
             age: 30
-         });*/
+         });
+         
+         var key = usersRef.key();
+         console.log(key);
       }
    </script>
 </html>
