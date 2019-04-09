@@ -71,6 +71,7 @@ title: Home
          // Add each file to storage
          for(var i = 0; i < fileList.files.length; i++){
             var fileName = fileList.files[i].name;
+            console.log(fileList.files[i].name);
             
             // Create storage ref
             const storageRef = storage.ref('posts/'+fileList.files[i].name);  // Reference to WHERE the image will be stored
