@@ -59,7 +59,9 @@ title: Home
       //var fileSelect = document.getElementById("file-select");
       function handleFileSelect(id){
          var metaData = {
-            sellerID: id
+            customMetadata:{
+               'seller': id
+            }
          };
          // Get file
          var file = document.getElementById("file-select").files[0];
