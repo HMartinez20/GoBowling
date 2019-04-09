@@ -15,8 +15,9 @@ title: Home
    <button class="btn btn-primary" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
    
    <div id="fileSubmit">
-     <input type="file" value="upload" id="file-select"/>
-      <button id="file-upload" class="btn btn-info" onclick="handleFileSelect();">Upload</button>
+     /*<input type="file" value="upload" id="file-select"/>*/
+     <input name="uploadFiles[]" id="uploadFiles" type="file" multiple="" />
+      <button id="file-upload" class="btn btn-info" onclick="writeNewItem();">Upload</button>
    </div>
    
    </body>
@@ -63,30 +64,34 @@ title: Home
                'seller': id
             }
          };
-         // Get file
-         var file = document.getElementById("file-select").files[0];
+         // Get files
+         var files = document.getElementById("uploadFiles");
+         var tasks = [];
          
          // Create storage ref
-         const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
+         const storageRef = storage.ref('posts/');  // Reference to WHERE the image will be stored
          
-         // Upload File
-         var task = storageRef.put(file, metaData);
-         
-         //Upload progress
-         task.on('state_changed',
-            function progress(snapshot){
-            },
-            function error(err){
-               alert(err);
-            },
-            function complete(){
-               alert("Uploaded!");
-            }
-         );
+         // Add each file to storage
+         for(var i = 0; i < files.files.length; i++){
+            tasks[i] = storageRef.put(files.files[i], metaData);
+            //fileList.push(files.files[i], metaData);
+            
+            //Upload progress
+            task[i].on('state_changed',
+               function progress(snapshot){
+               },
+               function error(err){
+                  alert(err);
+               },
+               function complete(){
+                  alert("Uploaded!");
+               }
+            );
+         }
       }
      
-      function writeNewUser(){
-        db.collection("items").add({
+      function writeNewItem(){
+         db.collection("items").add({
              price: "$5.00",
              username: "test123"
          })
