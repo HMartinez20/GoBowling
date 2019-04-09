@@ -58,6 +58,9 @@ title: Home
       var fileButton = document.getElementById("file-upload");
       //var fileSelect = document.getElementById("file-select");
       function handleFileSelect(id){
+         var metaData = {
+            sellerID: id
+         };
          // Get file
          var file = document.getElementById("file-select").files[0];
          
@@ -65,7 +68,7 @@ title: Home
          const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
          
          // Upload File
-         var task = storageRef.put(file, id);
+         var task = storageRef.put(file, metaData);
          
          //Upload progress
          task.on('state_changed',
