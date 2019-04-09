@@ -97,8 +97,9 @@ title: Home
      
       function writeNewItem(){
          db.collection("items").add({
-             price: "$5.00",
-             username: "test123"
+            price: "$5.00",
+            username: "test123",
+            date: new Date()
          })
          .then(function(docRef) {
              console.log("Document successfully written with ID...", docRef.id);
