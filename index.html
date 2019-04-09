@@ -69,27 +69,29 @@ title: Home
          var tasks = [];
          
          // Add each file to storage
-         for(var i = 0; i < fileList.files.length; i++){
-            var fileName = fileList.files[i].name;
-            console.log(fileList.files[i].name);
-            
-            // Create storage ref
-            const storageRef = storage.ref('posts/'+fileList.files[i].name);  // Reference to WHERE the image will be stored
-            
-            task = storageRef.put(fileList.files[i], metaData);
-            //fileList.push(files.files[i], metaData);
-            
-            //Upload progress
-            task.on('state_changed',
-               function progress(snapshot){
-               },
-               function error(err){
-                  alert(err);
-               },
-               function complete(){
-                  alert(fileName+"\nUploaded!");
-               }
-            );
+         if(fileList.files.length != 0){
+            for(var i = 0; i < fileList.files.length; i++){
+               var fileName = fileList.files[i].name;
+               console.log(fileList.files[i].name);
+
+               // Create storage ref
+               const storageRef = storage.ref('posts/'+fileList.files[i].name);  // Reference to WHERE the image will be stored
+
+               task = storageRef.put(fileList.files[i], metaData);
+               //fileList.push(files.files[i], metaData);
+
+               //Upload progress
+               task.on('state_changed',
+                  function progress(snapshot){
+                  },
+                  function error(err){
+                     alert(err);
+                  },
+                  function complete(){
+                     alert(fileName+"\nUploaded!");
+                  }
+               );
+            }
          }
       }
      
