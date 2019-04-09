@@ -61,7 +61,7 @@ title: Home
       function handleFileSelect(id){
          var metaData = {
             customMetadata:{
-               'seller': id
+               'item': id
             }
          };
          // Get files
@@ -73,11 +73,11 @@ title: Home
          
          // Add each file to storage
          for(var i = 0; i < files.files.length; i++){
-            tasks[i] = storageRef.put(files.files[i], metaData);
+            task = storageRef.put(files.files[i], metaData);
             //fileList.push(files.files[i], metaData);
             
             //Upload progress
-            task[i].on('state_changed',
+            task.on('state_changed',
                function progress(snapshot){
                },
                function error(err){
