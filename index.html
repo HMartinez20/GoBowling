@@ -57,7 +57,7 @@ title: Home
       
       var fileButton = document.getElementById("file-upload");
       //var fileSelect = document.getElementById("file-select");
-      function handleFileSelect(){
+      function handleFileSelect(id){
          // Get file
          var file = document.getElementById("file-select").files[0];
          
@@ -65,7 +65,7 @@ title: Home
          const storageRef = storage.ref('posts/'+file.name);  // Reference to WHERE the image will be stored
          
          // Upload File
-         var task = storageRef.put(file);
+         var task = storageRef.put(file, id);
          
          //Upload progress
          task.on('state_changed',
@@ -87,6 +87,8 @@ title: Home
          })
          .then(function(docRef) {
              console.log("Document successfully written with ID...", docRef.id);
+            handleFileSelect(docRef.id);
+           
          })
          .catch(function(error) {
              console.error("Error writing document: ", error);
