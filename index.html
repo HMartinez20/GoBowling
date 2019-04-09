@@ -83,9 +83,10 @@ title: Home
             name: "Jane",
             number: 1,
             age: 30
-         });
-         var name = usersRef.name();
-         console.log(name);
+         }).then(function(snapshot){
+           var key = snapshot.key;
+           console.log(key);
+           });
       }
    </script>
 </html>
