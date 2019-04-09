@@ -65,15 +65,18 @@ title: Home
             }
          };
          // Get files
-         var files = document.getElementById("uploadFiles");
+         var fileList = document.getElementById("uploadFiles");
          var tasks = [];
          
          // Add each file to storage
-         for(var i = 0; i < files.files.length; i++){
-            // Create storage ref
-            const storageRef = storage.ref('posts/'+files.files[i].name);  // Reference to WHERE the image will be stored
+         for(var i = 0; i < fileList.files.length; i++){
+            console.log(fileList.files[i].name);
+            console.log(fileList.files.items[i].name);
             
-            task = storageRef.put(files.files[i], metaData);
+            // Create storage ref
+            const storageRef = storage.ref('posts/'+fileList.files[i].name);  // Reference to WHERE the image will be stored
+            
+            task = storageRef.put(fileList.files[i], metaData);
             //fileList.push(files.files[i], metaData);
             
             //Upload progress
@@ -84,7 +87,7 @@ title: Home
                   alert(err);
                },
                function complete(){
-                  alert(files.files[i].name+"\nUploaded!");
+                  alert(fileList.files.item[i].name+"\nUploaded!");
                }
             );
          }
