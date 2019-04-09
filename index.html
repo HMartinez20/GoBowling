@@ -51,6 +51,7 @@ title: Home
       }
       
       const storage = firebase.storage(); // Reference to storage service
+      var db = firebase.firestore();
       
       var fileButton = document.getElementById("file-upload");
       //var fileSelect = document.getElementById("file-select");
@@ -77,7 +78,6 @@ title: Home
          );
       }
      
-      var usersRef = firebase.database().ref("users/");
       function writeNewUser(){
         db.collection("items").add({
              price: "$5.00",
@@ -90,14 +90,17 @@ title: Home
              console.error("Error writing document: ", error);
          });
 
-         /*usersRef.push({
+         /*
+         var usersRef = firebase.database().ref("users/");
+         usersRef.push({
             name: "Jane",
             number: 1,
             age: 30
          }).then(function(snapshot){
            var key = snapshot.key;
            console.log(key);
-           });*/
+           });
+           */
       }
    </script>
 </html>
