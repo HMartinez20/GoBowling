@@ -188,8 +188,8 @@ title: Home
          db.collection("items").get()
          .then(function(querySnapshot){
             querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
-               var imgURL = "{{site.baseurl}}/Empty.jpg";
-               storageRef.child('items/'+doc.data().user+'/').getDownloadURL().then(function(url) {
+               var imgURL = "";
+               storage.ref('items/'+doc.data().user+'/').getDownloadURL().then(function(url) {
                   console.log(url);
                   imgURL = url;
                }).catch(function(error){ console.log("No image found..."); });
