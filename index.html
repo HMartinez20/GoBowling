@@ -175,7 +175,7 @@ title: Home
                const storageRef = storage.ref('posts/'+currentUser+'/'+ dateFormatted + "_" + fileName);  // Reference to WHERE the image will be stored
                
                // Upload Image
-               task = storageRef.put(fileList.files[i], metaData);
+               task = storageRef.put(fileList.files[i].name, metaData);
 
                //Upload progress
                task.on('state_changed',
@@ -184,7 +184,7 @@ title: Home
                      alert(err);
                   },
                   function complete(){
-                     alert(fileName+"\nUploaded!...."+fileList.files[i].name);
+                     alert(fileName+"\nUploaded!");
                   }
                );
             }
