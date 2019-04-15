@@ -102,23 +102,23 @@ title: Home
 <!--....THIS IS THE END OF CODE FOR THE CREATE NEW POSTING BUTTON...-->
 </body>
 </html>
-   <script type="text/javascript">
-      console.log(document.getElementById("user").value);
-      function newSignUp(user, pass){
-         console.log("in new sign up function...");
-         console.log(user," ",pass);
-         firebase.auth().createUserWithEmailAndPassword(user, pass).catch(function(error) {
-            console.log(error.code);
-            console.log(error.message);
-         });
-      }
+<script type="text/javascript">
+	console.log(document.getElementById("user").value);
+	function newSignUp(user, pass){
+		console.log("in new sign up function...");
+		console.log(user," ",pass);
+		firebase.auth().createUserWithEmailAndPassword(user, pass).catch(function(error) {
+			console.log(error.code);
+			console.log(error.message);
+		});
+	}
+
+	const storage = firebase.storage(); // Reference to storage service
+	var db = firebase.firestore();
+
+	var currentUser = 'test123';
       
-      const storage = firebase.storage(); // Reference to storage service
-      var db = firebase.firestore();
-      
-      var currentUser = 'test123';
-      
-	   function writeNewItem(){
+	function writeNewItem(){
          var selected = null;
          var radios = document.getElementsByName("group1");
          for(var i = 0; i < radios.length; i++){
@@ -135,11 +135,9 @@ title: Home
 		  
 		 // Get files
 		 var fileList = document.getElementById("filesToUpload");
-		 var files = [];
 		 if(fileList.files.length != 0){
             for(var i = 0; i < fileList.files.length; i++){
 				item["image"+(i+1)] = fileList.files[i].name;
-				files.push(fileList.files[i]);
 			}
 		 }
 		 
@@ -147,7 +145,7 @@ title: Home
          db.collection("items").add(item)
          .then(function(docRef){
             console.log("ID = ", docRef.id);
-            handleFileSelect(docRef.id, files);
+            handleFileSelect(docRef.id);
          })
          .catch(function(error){
             alert("\n Error! Ask your administrator");
@@ -155,32 +153,33 @@ title: Home
          });
       }
       
-      function handleFileSelect(id, files){
-         var metaData = {
-            customMetadata:{
-               'item': id
-            }
-         };
-         var task, date = new Date();
-         var dateFormatted = date.getDate().toString().padStart(2,'0')+(date.getMonth()+1).toString().padStart(2,'0')+date.getFullYear().toString();
-         // Add each file to storage
-         if(files.length != 0){
-            for(var i = 0; i < files.length; i++){
-               // Create storage ref
-               const storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ files[i].name);  // Reference to WHERE the image will be stored
+	function handleFileSelect(id){
+		var metaData = {
+			customMetadata:{
+			   'item': id
+			}
+		};
+        var task, date = new Date();
+        var dateFormatted = date.getDate().toString().padStart(2,'0')+(date.getMonth()+1).toString().padStart(2,'0')+date.getFullYear().toString();
+		var fileList = document.getElementById("filesToUpload");
+		if(fileList.files.length != 0){
+			// Add each file to storage
+           for(var i = 0; i < fileList.files.length; i++){
+				// Create storage ref
+               const storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileList.files[i].name);  // Reference to WHERE the image will be stored
                
                // Upload Image
-               task = storageRef.put(files[i], metaData);
+               task = storageRef.put(fileList.files[i], metaData);
 
                //Upload progress
                task.on('state_changed',
                   function progress(snapshot){},
                   function error(err){ alert(err); },
-                  function complete(){ alert(files[i].name+"\nUploaded!"); }
+                  function complete(){ alert(fileList.files[i].name+"\nUploaded!"); }
                );
-            }
-         }
-      }
+			}
+		}
+	}
       
       function genListings(){
          db.collection("items").get()
