@@ -167,7 +167,7 @@ title: Home
          if(files.length != 0){
             for(var i = 0; i < files.length; i++){
                // Create storage ref
-               const storageRef = storage.ref('posts/'+currentUser+'/'+ dateFormatted + "_" + files[i].name);  // Reference to WHERE the image will be stored
+               const storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ files[i].name);  // Reference to WHERE the image will be stored
                
                // Upload Image
                task = storageRef.put(files[i], metaData);
