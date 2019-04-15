@@ -164,7 +164,7 @@ title: Home
          var tasks = [];
          
          var date = new Date();
-         var dateFormatted = date.getDate().toString+(date.getMonth()+1).toString()+date.getFullYear().toString();
+         var dateFormatted = date.getDate().toString()+(date.getMonth()+1).toString()+date.getFullYear().toString();
          // Add each file to storage
          if(fileList.files.length != 0){
             for(var i = 0; i < fileList.files.length; i++){
@@ -183,7 +183,7 @@ title: Home
                      alert(err);
                   },
                   function complete(){
-                     alert(fileName+"\nUploaded!");
+                     alert(fileName+"\nUploaded!...."+fileList.files[i].name);
                   }
                );
             }
