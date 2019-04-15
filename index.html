@@ -20,7 +20,6 @@ title: Home
       <button id="file-upload" class="btn btn-info" onclick="">Upload</button>
    </div>
    
-   </body>
    <div class="modal" tabindex="-1" role="dialog" id="signUpModal">
       <div class="modal-dialog" role="document">
        <div class="modal-content">
@@ -40,6 +39,76 @@ title: Home
        </div>
       </div>
    </div>
+<!-- Create new posting button -->
+<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Create New Posting</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body mx-3">
+
+	   <!-- Radio -->
+      <p class="text-left"><strong>Item Type:</strong></p>
+      <div class="form-check mb-4">
+         <input class="form-check-input" name="group1" type="radio" id="radio-179" value="books" checked>
+         <label class="form-check-label" for="radio-179">Books</label>
+      </div>
+        <div class="form-check mb-4">
+          <input class="form-check-input" name="group1" type="radio" id="radio-279" value="clothing">
+          <label class="form-check-label" for="radio-279">Clothing</label>
+        </div>
+        <div class="form-check mb-4">
+          <input class="form-check-input" name="group1" type="radio" id="radio-379" value="electronics">
+          <label class="form-check-label" for="radio-379">Electronics</label>
+        </div>
+        <div class="form-check mb-4">
+          <input class="form-check-input" name="group1" type="radio" id="radio-479" value="furniture">
+          <label class="form-check-label" for="radio-479">Furniture</label>
+        </div>
+        <div class="form-check mb-4">
+          <input class="form-check-input" name="group1" type="radio" id="radio-579" value="other">
+          <label class="form-check-label" for="radio-579">Other</label>
+        </div>
+        <!-- End Radio -->
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="form34">Item Name</label>
+          <input type="text" id="form34" class="form-control validate"/>
+        </div>
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="form29">Price</label>
+          <input type="text" id="form29" class="form-control validate"/>
+        </div>
+        <div class="md-form mb-5">
+          <i class="fas fa-pencil prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="form8">Item Description</label>
+          <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
+        </div>	
+	
+         <!-- Upload button for multiple images -->
+	      <div class="md-form">
+             <!-- IMPORTANT:  FORM's enctype must be "multipart/form-data" -->
+             <form method="post" action="upload-page.php" enctype="multipart/form-data">
+             <input name="filesToUpload[]" id="filesToUpload" type="file" multiple />
+             </form>
+         </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-unique" onclick="writeNewItem();">Create Posting<i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">Create New Posting</a>
+</div>
+<!--....THIS IS THE END OF CODE FOR THE CREATE NEW POSTING BUTTON...-->
+</body>
+</html>
    <script type="text/javascript">
       var test;
       console.log(test);
@@ -55,6 +124,34 @@ title: Home
       
       const storage = firebase.storage(); // Reference to storage service
       var db = firebase.firestore();
+      
+      var currentUser = 'test123';
+      function writeNewItem(){
+         var selected = null;
+         var radios = document.getElementsByName("group1");
+         for(var i = 0; i < radios.length; i++){
+            if (radios[i].checked){
+               selected = radios[i].value;
+               break;
+            }
+         }		
+         db.collection("items").add({
+            category: selected,
+            title: document.getElementById("form34").value,
+            price: Number(document.getElementById("form29").value),
+            description: document.getElementById("form8").value,
+            date: new Date(),
+            user: currentUser
+         })
+         .then(function(docRef){
+            console.log("ID = ", docRef.id);
+            handleFileSelect(docRef.id);
+         })
+         .catch(function(error){
+            alert("\n Error! Ask your administrator");
+            console.log("Error writing document ", error);
+         });
+      }
       
       var fileButton = document.getElementById("file-upload");
       //var fileSelect = document.getElementById("file-select");
@@ -76,15 +173,14 @@ title: Home
                var fileName = fileList.files[i].name;
 
                // Create storage ref
-               const storageRef = storage.ref('posts/test123/'+ dateFormatted + "_" + fileName);  // Reference to WHERE the image will be stored
-
+               const storageRef = storage.ref('posts/'+currentUser+'/'+ dateFormatted + "_" + fileName);  // Reference to WHERE the image will be stored
+               
+               // Upload Image
                task = storageRef.put(fileList.files[i], metaData);
-               //fileList.push(files.files[i], metaData);
 
                //Upload progress
                task.on('state_changed',
-                  function progress(snapshot){
-                  },
+                  function progress(snapshot){},
                   function error(err){
                      alert(err);
                   },
@@ -95,33 +191,25 @@ title: Home
             }
          }
       }
-     
-      function writeNewItem(){
-         db.collection("items").add({
-            price: "$5.00",
-            username: "test123",
-            date: new Date()
-         })
-         .then(function(docRef) {
-             console.log("Document successfully written with ID...", docRef.id);
-            handleFileSelect(docRef.id);
-           
-         })
-         .catch(function(error) {
-             console.error("Error writing document: ", error);
-         });
+      
+      function genListings(search){
+         document.getElementById("listings").innerHTML = '';
+         db.collection("items").get()
+         .then(function(querySnapshot){
+            querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
+               var imgURL = "{{site.baseurl}}/Empty.jpg";
+               storageRef.child('items/'+doc.data().user+'/').getDownloadURL().then(function(url) {
+                  console.log(url);
+                  imgURL = url;
+               }).catch(function(error){ console.log("No image found..."); });
 
-         /*
-         var usersRef = firebase.database().ref("users/");
-         usersRef.push({
-            name: "Jane",
-            number: 1,
-            age: 30
-         }).then(function(snapshot){
-           var key = snapshot.key;
-           console.log(key);
-           });
-           */
+               console.log("ITEM");
+               console.log("\tURL: "+imgURL);
+               console.log("\tItem No.: "+doc.id);
+               console.log("\tItem Title: "+doc.data().title);
+               console.log("\tItem Price: "+doc.data().price);
+               console.log("END ITEM");
+            });
+         });
       }
    </script>
-</html>
