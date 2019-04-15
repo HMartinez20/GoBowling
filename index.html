@@ -75,7 +75,7 @@ title: Home
                console.log(fileList.files[i].name);
 
                // Create storage ref
-               const storageRef = storage.ref('posts/'+ new Date().getTime()+ "_" + fileList.files[i].name);  // Reference to WHERE the image will be stored
+               const storageRef = storage.ref('posts/test123/'+ new Date().getTime()+ "_" + fileList.files[i].name);  // Reference to WHERE the image will be stored
 
                task = storageRef.put(fileList.files[i], metaData);
                //fileList.push(files.files[i], metaData);
