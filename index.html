@@ -110,8 +110,6 @@ title: Home
 </body>
 </html>
    <script type="text/javascript">
-      var test;
-      console.log(test);
       console.log(document.getElementById("user").value);
       function newSignUp(user, pass){
          console.log("in new sign up function...");
@@ -156,14 +154,13 @@ title: Home
       var fileButton = document.getElementById("file-upload");
       //var fileSelect = document.getElementById("file-select");
       function handleFileSelect(id){
-	 console.log("in handle select function...");
          var metaData = {
             customMetadata:{
                'item': id
             }
          };
          // Get files
-         var fileList = document.getElementById("uploadFiles");
+         var fileList = document.getElementById("filesToUpload");
          var tasks = [];
          
          var date = new Date();
