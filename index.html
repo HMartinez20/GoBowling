@@ -161,7 +161,7 @@ title: Home
          };
          // Get files
          var fileList = document.getElementById("filesToUpload");
-         var tasks = [];
+         var task;
          
          var date = new Date();
          var dateFormatted = date.getDate().toString()+(date.getMonth()+1).toString()+date.getFullYear().toString();
@@ -175,7 +175,7 @@ title: Home
                const storageRef = storage.ref('posts/'+currentUser+'/'+ dateFormatted + "_" + fileName);  // Reference to WHERE the image will be stored
                
                // Upload Image
-               task = storageRef.put(fileList.files[i].name, metaData);
+               task = storageRef.put(fileList.files[i], metaData);
 
                //Upload progress
                task.on('state_changed',
