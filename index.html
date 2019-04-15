@@ -10,15 +10,8 @@ title: Home
    <body>
    <h1> {{ page.title }} </h1>
    <button id="button" class="btn" onclick="window.location='https://hmartinez20.github.io/GoBowling/pageTwo.html'"> Page 2 </button>
-   <button onclick="writeNewItem();">Create New Item</button>
-   <pre id="object"></pre>
    <button class="btn btn-primary" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
-   
-   <div id="fileSubmit">
-     /*<input type="file" value="upload" id="file-select"/>*/
-     <input name="uploadFiles[]" id="uploadFiles" type="file" multiple="" />
-      <button id="file-upload" class="btn btn-info" onclick="">Upload</button>
-   </div>
+   <button class="btn btn-info" onclick="genListings();">Show Posts</button>
    
    <div class="modal" tabindex="-1" role="dialog" id="signUpModal">
       <div class="modal-dialog" role="document">
@@ -164,7 +157,7 @@ title: Home
          var task;
          
          var date = new Date();
-         var dateFormatted = date.getDate().toString()+(date.getMonth()+1).toString()+date.getFullYear().toString();
+         var dateFormatted = date.getDate().toString().pad(2,'0')+(date.getMonth()+1).toString().pad(2,'0')+date.getFullYear().toString();
          // Add each file to storage
          if(fileList.files.length != 0){
             for(var i = 0; i < fileList.files.length; i++){
@@ -191,7 +184,7 @@ title: Home
          }
       }
       
-      function genListings(search){
+      function genListings(){
          document.getElementById("listings").innerHTML = '';
          db.collection("items").get()
          .then(function(querySnapshot){
