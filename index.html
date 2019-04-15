@@ -169,6 +169,7 @@ title: Home
          if(fileList.files.length != 0){
             for(var i = 0; i < fileList.files.length; i++){
                var fileName = fileList.files[i].name;
+		console.log(fileName);
 
                // Create storage ref
                const storageRef = storage.ref('posts/'+currentUser+'/'+ dateFormatted + "_" + fileName);  // Reference to WHERE the image will be stored
