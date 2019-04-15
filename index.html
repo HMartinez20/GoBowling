@@ -117,26 +117,37 @@ title: Home
       var db = firebase.firestore();
       
       var currentUser = 'test123';
-      function writeNewItem(){
+      
+	   function writeNewItem(){
          var selected = null;
          var radios = document.getElementsByName("group1");
          for(var i = 0; i < radios.length; i++){
-            if (radios[i].checked){
-               selected = radios[i].value;
-               break;
-            }
-         }		
-         db.collection("items").add({
-            category: selected,
+            if (radios[i].checked){ selected = radios[i].value; break; }
+         }
+		  var item = {
+			category: selected,
             title: document.getElementById("form34").value,
             price: Number(document.getElementById("form29").value),
             description: document.getElementById("form8").value,
             date: new Date(),
             user: currentUser
-         })
+         };
+		  
+		 // Get files
+		 var fileList = document.getElementById("filesToUpload");
+		 var files = [];
+		 if(fileList.files.length != 0){
+            for(var i = 0; i < fileList.files.length; i++){
+				item["image"+(i+1)] = fileList.files[i].name;
+				files.push(fileList.files[i]);
+			}
+		 }
+		 
+		 // Insert data into firestore database
+         db.collection("items").add(item)
          .then(function(docRef){
             console.log("ID = ", docRef.id);
-            handleFileSelect(docRef.id);
+            handleFileSelect(docRef.id, files);
          })
          .catch(function(error){
             alert("\n Error! Ask your administrator");
@@ -144,41 +155,28 @@ title: Home
          });
       }
       
-      var fileButton = document.getElementById("file-upload");
-      //var fileSelect = document.getElementById("file-select");
-      function handleFileSelect(id){
+      function handleFileSelect(id, files){
          var metaData = {
             customMetadata:{
                'item': id
             }
          };
-         // Get files
-         var fileList = document.getElementById("filesToUpload");
-         var task;
-         
-         var date = new Date();
+         var task, date = new Date();
          var dateFormatted = date.getDate().toString().pad(2,'0')+(date.getMonth()+1).toString().pad(2,'0')+date.getFullYear().toString();
          // Add each file to storage
-         if(fileList.files.length != 0){
-            for(var i = 0; i < fileList.files.length; i++){
-               var fileName = fileList.files[i].name;
-		console.log(fileName);
-
+         if(files.length != 0){
+            for(var i = 0; i < files.length; i++){
                // Create storage ref
-               const storageRef = storage.ref('posts/'+currentUser+'/'+ dateFormatted + "_" + fileName);  // Reference to WHERE the image will be stored
+               const storageRef = storage.ref('posts/'+currentUser+'/'+ dateFormatted + "_" + files[i].name);  // Reference to WHERE the image will be stored
                
                // Upload Image
-               task = storageRef.put(fileList.files[i], metaData);
+               task = storageRef.put(files[i], metaData);
 
                //Upload progress
                task.on('state_changed',
                   function progress(snapshot){},
-                  function error(err){
-                     alert(err);
-                  },
-                  function complete(){
-                     alert(fileName+"\nUploaded!");
-                  }
+                  function error(err){ alert(err); },
+                  function complete(){ alert(files[i].name+"\nUploaded!"); }
                );
             }
          }
