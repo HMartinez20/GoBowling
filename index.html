@@ -181,15 +181,14 @@ title: Home
 		}
 	}
 	
-	const storageRef = storage.ref();
 	function genListings(){
 		db.collection("items").get()
 		.then(function(querySnapshot){
 			querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
 				var task, imgURL = "";
-				console.log('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
 				if(doc.data().image1){
-					var imgRef = storageRef.child('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
+					var imgRef = storage.ref('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
+					console.log('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
 					imgRef.getDownloadURL().then(function(url) {
 						console.log(url);
 						imgURL = url;
