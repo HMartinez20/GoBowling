@@ -180,12 +180,9 @@ title: Home
                   function complete(){ alert(fileName+"\nUploaded!"); }
                );
 			   
-				storageRef.getDownloadURL().then(function(url) {
-					console.log(url);
-				}).catch(function(error){ console.log("storageRef...No image found..."); });
-			   
-			   var imgRef = storage.child('posts/'+currentUser+'/'+id+'/'+ fileName);
-			   console.log('posts/'+currentUser+'/'+id+'/'+ fileName);
+			   var path = ('posts/'+currentUser+'/'+id+'/'+ fileName).toString;
+			   var imgRef = storage.ref(path);
+			   console.log(path);
 				imgRef.getDownloadURL().then(function(url) {
 					console.log(url);
 					var docRef = db.collection("items").doc(id);
