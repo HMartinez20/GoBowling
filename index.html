@@ -167,7 +167,6 @@ title: Home
 			var image = "image";
 			// Add each file to storage
 			for(var i = 0; i < fileList.files.length; i++){
-				var image = "image"+i;
 				var fileName = fileList.files[i].name;
 				// Create storage ref
 				const storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
@@ -182,9 +181,10 @@ title: Home
 					function complete(){ 
 						alert(fileName+"\nUploaded!"); 
 						storageRef.getDownloadURL().then(function(url) {
+							var data = { "image"+(i+1) = url }
 							console.log(url);
 							var docRef = db.collection("items").doc(id);
-							var mergeInfo = docRef.set( { image : url }, {merge:true} );
+							var mergeInfo = docRef.set( data, {merge:true} );
 						}).catch(function(error){ console.log("imgRef...No image found..."); });
 					}
 				);
