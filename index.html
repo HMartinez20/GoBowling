@@ -180,10 +180,10 @@ title: Home
                   function complete(){ alert(fileName+"\nUploaded!"); }
                );
 			   
-				task = storageRef.getDownloadURL().then(function(url) {
+				storageRef.getDownloadURL().then(function(url) {
 					console.log(url);
 					var docRef = db.collection("items").doc(id);
-					var mergeInfo = docRef.set( { image : url }, {merge:true} );
+					var mergeInfo = docRef.set( { img : url }, {merge:true} );
 				}).catch(function(error){ console.log("No image found..."); });
 			}
 		}
