@@ -168,8 +168,8 @@ title: Home
 				
 				// Upload Image
 				var task = storageRef.put(fileList.files[i], metaData)
-				.then(function(snapshot){
-					console.log(snapshot.getDownloadURL());
+				.then(snapshot => {
+					console.log(snapshot.downloadURL);
 				});
 				
 				//Upload progress
