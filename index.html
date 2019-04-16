@@ -175,27 +175,22 @@ title: Home
 
                //Upload progress
                task.on('state_changed',
-                  function progress(snapshot){
-				   console.log(snapshot.downloadURL);
-			   		console.log(task.snapshot.downloadURL);
-			      },
+                  function progress(snapshot){},
                   function error(err){ alert(err); },
-                  function complete(){ 
-				   alert(fileName+"\nUploaded!");
-				   console.log(snapshot.downloadURL);
-			   		console.log(task.snapshot.downloadURL);
-			   		}
+                  function complete(){ alert(fileName+"\nUploaded!"); }
                );
-				   console.log(snapshot.downloadURL);
-			   		console.log(task.snapshot.downloadURL);
 			   
-			   var imgRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);
+				storageRef.getDownloadURL().then(function(url) {
+					console.log(url);
+				}).catch(function(error){ console.log("storageRef...No image found..."); });
+			   
+			   var imgRef = storage.child('posts/'+currentUser+'/'+id+'/'+ fileName);
 			   console.log('posts/'+currentUser+'/'+id+'/'+ fileName);
 				imgRef.getDownloadURL().then(function(url) {
 					console.log(url);
 					var docRef = db.collection("items").doc(id);
 					var mergeInfo = docRef.set( { img : url }, {merge:true} );
-				}).catch(function(error){ console.log("No image found..."); });
+				}).catch(function(error){ console.log("imgRef...No image found..."); });
 			}
 		}
 	}
