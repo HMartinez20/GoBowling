@@ -165,29 +165,28 @@ title: Home
 		var fileList = document.getElementById("filesToUpload");
 		if(fileList.files.length != 0){
 			// Add each file to storage
-           for(var i = 0; i < fileList.files.length; i++){
-			   var fileName = fileList.files[i].name;
+			for(var i = 0; i < fileList.files.length; i++){
+				var fileName = fileList.files[i].name;
 				// Create storage ref
-               const storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
-               
-               // Upload Image
-               task = storageRef.put(fileList.files[i], metaData);
+				const storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
 
-               //Upload progress
-               task.on('state_changed',
-                  function progress(snapshot){},
-                  function error(err){ alert(err); },
-                  function complete(){ alert(fileName+"\nUploaded!"); }
-               );
-			   
-			   var path = ('posts/'+currentUser+'/'+id+'/'+ fileName).toString();
-			   var imgRef = storage.ref(path);
-			   console.log(path);
-				imgRef.getDownloadURL().then(function(url) {
-					console.log(url);
-					var docRef = db.collection("items").doc(id);
-					var mergeInfo = docRef.set( { img : url }, {merge:true} );
-				}).catch(function(error){ console.log("imgRef...No image found..."); });
+				// Upload Image
+				task = storageRef.put(fileList.files[i], metaData);
+
+				//Upload progress
+				task.on('state_changed',
+					function progress(snapshot){},
+					function error(err){ alert(err); },
+					function complete(){ 
+						alert(fileName+"\nUploaded!"); 
+						storageRef.getDownloadURL().then(function(url) {
+							console.log(url);
+							var docRef = db.collection("items").doc(id);
+							var mergeInfo = docRef.set( { img : url }, {merge:true} );
+						}).catch(function(error){ console.log("imgRef...No image found..."); });
+					}
+				);
+
 			}
 		}
 	}
