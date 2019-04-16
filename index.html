@@ -187,9 +187,8 @@ title: Home
 		.then(function(querySnapshot){
 			querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
 				var imgURL = "";
-				console.log(doc.image1.exists);
 				console.log(doc.image1.exists());
-				if(doc.image1.exists){
+				if(doc.image1.exists()){
 					storage.ref('items/'+doc.user+'/'+doc.id+'/'+doc.image1).getDownloadURL().then(function(url) {
 						console.log(url);
 						imgURL = url;
