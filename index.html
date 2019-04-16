@@ -176,19 +176,16 @@ title: Home
                //Upload progress
                task.on('state_changed',
                   function progress(snapshot){
-			   		console.log(downloadURL);
 				   console.log(snapshot.downloadURL);
 			   		console.log(task.snapshot.downloadURL);
 			      },
                   function error(err){ alert(err); },
                   function complete(){ 
 				   alert(fileName+"\nUploaded!");
-			   		console.log(downloadURL);
 				   console.log(snapshot.downloadURL);
 			   		console.log(task.snapshot.downloadURL);
 			   		}
                );
-			   console.log(downloadURL);
 				   console.log(snapshot.downloadURL);
 			   		console.log(task.snapshot.downloadURL);
 			   
