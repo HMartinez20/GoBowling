@@ -151,7 +151,7 @@ title: Home
 			   'item': id
 			}
 		};
-        var task, date = new Date();
+        var date = new Date();
         var dateFormatted = date.getDate().toString().padStart(2,'0')+(date.getMonth()+1).toString().padStart(2,'0')+date.getFullYear().toString();
 		var fileList = document.getElementById("filesToUpload");
 		if(fileList.files.length != 0){
@@ -159,23 +159,29 @@ title: Home
 			for(var i = 0; i < fileList.files.length; i++){
 				var fileName = fileList.files[i].name;
 				// Create storage ref
-				const storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
+				var storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
 
-				// Upload Image
-				storageRef.put(fileList.files[i], metaData).getDownloadURL()
-				.then(function(url) {
-					alert(fileName+"\nUploaded!"); 
-					var img = "image"+(i+1);
-					var data = {};
-					data[img] = url;
-					console.log(url);
-					var docRef = db.collection("items").doc(id);
-					var mergeInfo = docRef.set( data, {merge:true} );
-				}).catch(function(error){ 
-					console.log("imgRef...No image found..."); 
+				var task = storageRef.put(fileList.files[i], metaData);
+				task.on('state_changed', 
+					function(snapshot){},
+					function(error){},
+					function(){
+						alert("Image uploaded!");
+						task.snapshot.ref.getDownloadURL().then(function(downloadURL){
+							console.log(downloadURL);
+						});
+					}
+				);
+				uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+					console.log('File available at', downloadURL);
 				});
+// 				// Upload Image
+// 				var task = storageRef.put(fileList.files[i], metaData)
+// 				.then(function(snapshot){
+// 					console.log(snapshot.getDownloadURL());
+// 				});
 				
-				//Upload progress
+// 				//Upload progress
 // 				task.on('state_changed',
 // 					function progress(snapshot){},
 // 					function error(err){ alert(err); },
