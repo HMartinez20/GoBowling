@@ -162,15 +162,9 @@ title: Home
 				// Create storage ref
 				var storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
 				
-				// Upload
-				//var task = storageRef.put(fileList.files[i], metaData);
-				
-				
 				// Upload Image
-				var task = storageRef.put(fileList.files[i], metaData)
-				.then(snapshot => {
-					console.log(snapshot.downloadURL);
-				});
+				//var task = storageRef.put(fileList.files[i], metaData);
+				uploadImg(fileList.files[i], metaData, storageRef);
 				
 				//Upload progress
 // 				task.on('state_changed',
@@ -189,17 +183,21 @@ title: Home
 // 				);
 			}
 		}
-		task.on('state_changed', 
-					function(snapshot){},
-					function(error){},
-					function(){
-						alert("Image uploaded!");
-						task.snapshot.ref.getDownloadURL().then(function(downloadURL){
-							console.log(downloadURL);
-						});
-					}
-				);
 		alert("Posted!");
+	}
+	
+	function uploadImg(file, metaData, ref){
+		var task = storageRef.put(file, metaData);
+		task.on('state_changed', 
+			function(snapshot){},
+			function(error){},
+			function(){
+				alert("Image uploaded!");
+				task.snapshot.ref.getDownloadURL().then(function(downloadURL){
+					console.log(downloadURL);
+				});
+			}
+		);
 	}
 	
 	function genListings(){
