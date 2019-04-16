@@ -187,9 +187,9 @@ title: Home
 		.then(function(querySnapshot){
 			querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
 				var imgURL = "";
-				console.log(doc.data().image1);
+				console.log('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
 				if(doc.data().image1){
-					storage.ref('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1).getDownloadURL().then(function(url) {
+					storage.child('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1).getDownloadURL().then(function(url) {
 						console.log(url);
 						imgURL = url;
 					}).catch(function(error){ console.log("No image found..."); });
