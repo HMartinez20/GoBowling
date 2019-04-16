@@ -180,7 +180,7 @@ title: Home
                   function complete(){ alert(fileName+"\nUploaded!"); }
                );
 			   
-			   var path = ('posts/'+currentUser+'/'+id+'/'+ fileName).toString;
+			   var path = ('posts/'+currentUser+'/'+id+'/'+ fileName).toString();
 			   var imgRef = storage.ref(path);
 			   console.log(path);
 				imgRef.getDownloadURL().then(function(url) {
