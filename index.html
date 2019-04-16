@@ -114,10 +114,9 @@ title: Home
 	}
 
 	const storage = firebase.storage(); // Reference to storage service
-	var db = firebase.firestore();
+	const db = firebase.firestore();
 
 	var currentUser = 'test123';
-      
 	function writeNewItem(){
          var selected = null;
          var radios = document.getElementsByName("group1");
@@ -181,7 +180,8 @@ title: Home
 			}
 		}
 	}
-      
+	
+	const storageRef = storage.ref();
 	function genListings(){
 		db.collection("items").get()
 		.then(function(querySnapshot){
@@ -189,8 +189,8 @@ title: Home
 				var task, imgURL = "";
 				console.log('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
 				if(doc.data().image1){
-					var storageRef.child('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
-					storageRef.getDownloadURL().then(function(url) {
+					var imgRef = storageRef.child('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
+					imgRef.getDownloadURL().then(function(url) {
 						console.log(url);
 						imgURL = url;
 					}).catch(function(error){ console.log("No image found..."); });
