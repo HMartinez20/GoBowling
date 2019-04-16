@@ -162,16 +162,17 @@ title: Home
 				const storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
 
 				// Upload Image
-				task = storageRef.put(fileList.files[i], metaData);
-				alert(fileName+"\nUploaded!"); 
-				var img = "image"+(i+1);
-				storageRef.getDownloadURL().then(function(url) {
-					var data = {};
-					data[img] = url;
-					console.log(url);
-					var docRef = db.collection("items").doc(id);
-					var mergeInfo = docRef.set( data, {merge:true} );
-				}).catch(function(error){ console.log("imgRef...No image found..."); });
+				storageRef.put(fileList.files[i], metaData).then(
+					alert(fileName+"\nUploaded!"); 
+					var img = "image"+(i+1);
+					storageRef.getDownloadURL().then(function(url) {
+						var data = {};
+						data[img] = url;
+						console.log(url);
+						var docRef = db.collection("items").doc(id);
+						var mergeInfo = docRef.set( data, {merge:true} );
+					}).catch(function(error){ console.log("imgRef...No image found..."); });
+				);
 				
 				//Upload progress
 // 				task.on('state_changed',
