@@ -186,8 +186,9 @@ title: Home
          db.collection("items").get()
          .then(function(querySnapshot){
             querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
-               var imgURL = "";
-               storage.ref('items/'+doc.data().user+'/'+doc.id+'.jpg').getDownloadURL().then(function(url) {
+               var seller = doc.data().user.substring(0, doc.data().user.indexOf('@'));
+	       var imgURL = "";
+               storage.ref('items/'+seller+'/'+doc.id+'.jpg').getDownloadURL().then(function(url) {
                   console.log(url);
                   imgURL = url;
                }).catch(function(error){ console.log("No image found..."); });
