@@ -125,25 +125,16 @@ title: Home
          for(var i = 0; i < radios.length; i++){
             if (radios[i].checked){ selected = radios[i].value; break; }
          }
-		  var item = {
+		 
+		 // Insert data into firestore database
+         db.collection("items").add({
 			category: selected,
             title: document.getElementById("form34").value,
             price: Number(document.getElementById("form29").value),
             description: document.getElementById("form8").value,
             date: new Date(),
             user: currentUser
-         };
-		  
-		 // Get files
-		 var fileList = document.getElementById("filesToUpload");
-		 if(fileList.files.length != 0){
-            for(var i = 0; i < fileList.files.length; i++){
-				item["image"+(i+1)] = fileList.files[i].name;
-			}
-		 }
-		 
-		 // Insert data into firestore database
-         db.collection("items").add(item)
+         })
          .then(function(docRef){
             console.log("ID = ", docRef.id);
             handleFileSelect(docRef.id);
