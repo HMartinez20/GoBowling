@@ -182,24 +182,25 @@ title: Home
 		}
 	}
       
-      function genListings(){
-         db.collection("items").get()
-         .then(function(querySnapshot){
-            querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
-               var seller = doc.data().user.substring(0, doc.data().user.indexOf('@'));
-	       var imgURL = "";
-               storage.ref('items/'+seller+'/'+doc.id+'.jpg').getDownloadURL().then(function(url) {
-                  console.log(url);
-                  imgURL = url;
-               }).catch(function(error){ console.log("No image found..."); });
+	function genListings(){
+		db.collection("items").get()
+		.then(function(querySnapshot){
+			querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
+				var seller = doc.data().user.substring(0, doc.data().user.indexOf('@'));
+				console.log('items/'+seller+'/'+doc.id+'.jpg');
+				var imgURL = "";
+				storage.ref('items/'+seller+'/'+doc.id+'.jpg').getDownloadURL().then(function(url) {
+					console.log(url);
+					imgURL = url;
+				}).catch(function(error){ console.log("No image found..."); });
 
-               console.log("ITEM");
-               console.log("\tURL: "+imgURL);
-               console.log("\tItem No.: "+doc.id);
-               console.log("\tItem Title: "+doc.data().title);
-               console.log("\tItem Price: "+doc.data().price);
-               console.log("END ITEM");
-            });
-         });
-      }
+				console.log("ITEM");
+				console.log("\tURL: "+imgURL);
+				console.log("\tItem No.: "+doc.id);
+				console.log("\tItem Title: "+doc.data().title);
+				console.log("\tItem Price: "+doc.data().price);
+				console.log("END ITEM");
+			});
+		});
+	}
    </script>
