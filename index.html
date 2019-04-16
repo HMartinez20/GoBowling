@@ -187,7 +187,7 @@ title: Home
          .then(function(querySnapshot){
             querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
                var imgURL = "";
-               storage.ref('items/'+doc.data().user+'/').getDownloadURL().then(function(url) {
+               storage.ref('items/'+doc.data().user+'/'+doc.id+'.jpg').getDownloadURL().then(function(url) {
                   console.log(url);
                   imgURL = url;
                }).catch(function(error){ console.log("No image found..."); });
