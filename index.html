@@ -158,23 +158,13 @@ title: Home
 			// Add each file to storage
 			for(var i = 0; i < fileList.files.length; i++){
 				var fileName = fileList.files[i].name;
+				
 				// Create storage ref
 				var storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
 
 				var task = storageRef.put(fileList.files[i], metaData);
-				task.on('state_changed', 
-					function(snapshot){},
-					function(error){},
-					function(){
-						alert("Image uploaded!");
-						task.snapshot.ref.getDownloadURL().then(function(downloadURL){
-							console.log(downloadURL);
-						});
-					}
-				);
-				uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-					console.log('File available at', downloadURL);
-				});
+				
+				
 // 				// Upload Image
 // 				var task = storageRef.put(fileList.files[i], metaData)
 // 				.then(function(snapshot){
@@ -198,6 +188,16 @@ title: Home
 // 				);
 			}
 		}
+		task.on('state_changed', 
+					function(snapshot){},
+					function(error){},
+					function(){
+						alert("Image uploaded!");
+						task.snapshot.ref.getDownloadURL().then(function(downloadURL){
+							console.log(downloadURL);
+						});
+					}
+				);
 		alert("Posted!");
 	}
 	
