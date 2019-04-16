@@ -151,51 +151,38 @@ title: Home
 			   'item': id
 			}
 		};
-        var date = new Date();
+        var img, date = new Date();
         var dateFormatted = date.getDate().toString().padStart(2,'0')+(date.getMonth()+1).toString().padStart(2,'0')+date.getFullYear().toString();
 		var fileList = document.getElementById("filesToUpload");
 		if(fileList.files.length != 0){
 			// Add each file to storage
 			for(var i = 0; i < fileList.files.length; i++){
+				img = "image"+(i+1);
 				var fileName = fileList.files[i].name;
 				
-				// Create storage ref
-				var storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
-				
 				// Upload Image
-				//var task = storageRef.put(fileList.files[i], metaData);
-				uploadImg(fileList.files[i], metaData, id, fileName);
-				
-				//Upload progress
-// 				task.on('state_changed',
-// 					function progress(snapshot){},
-// 					function error(err){ alert(err); },
-// 					function complete(){ 
-// 						alert(fileName+"\nUploaded!"); 
-// 						storageRef.getDownloadURL().then(function(url) {
-// 							var data = {};
-// 							data[img] = url;
-// 							console.log(url);
-// 							var docRef = db.collection("items").doc(id);
-// 							var mergeInfo = docRef.set( data, {merge:true} );
-// 						}).catch(function(error){ console.log("imgRef...No image found..."); });
-// 					}
-// 				);
+				uploadImg(fileList.files[i], metaData, id, fileName, img);
 			}
 		}
 		alert("Posted!");
 	}
 	
-	function uploadImg(file, metaData, id, fileName){
+	function uploadImg(file, metaData, id, fileName, img){
 		var storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
 		var task = storageRef.put(file, metaData);
+		
+		// Upload Progress
 		task.on('state_changed', 
 			function(snapshot){},
 			function(error){},
 			function(){
-				alert("Image uploaded!");
+				alert(fileName+"\nUploaded!");
 				task.snapshot.ref.getDownloadURL().then(function(downloadURL){
 					console.log(downloadURL);
+					var data = {};
+					data[img] = downloadURL;
+					var docRef = db.collection("items").doc(id);
+					var mergeInfo = docRef.set( data, {merge:true} );
 				});
 			}
 		);
