@@ -187,6 +187,7 @@ title: Home
 	}
 	
 	function uploadImg(file, metaData, fileName){
+		var storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
 		var task = storageRef.put(file, metaData);
 		task.on('state_changed', 
 			function(snapshot){},
