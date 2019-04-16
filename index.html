@@ -162,10 +162,10 @@ title: Home
 				const storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
 
 				// Upload Image
-				storageRef.put(fileList.files[i], metaData).then(
-					alert(fileName+"\nUploaded!"); 
-					var img = "image"+(i+1);
-					storageRef.getDownloadURL().then(function(url) {
+				storageRef.put(fileList.files[i], metaData).getDownloadURL()
+					.then(function(url) {
+						alert(fileName+"\nUploaded!"); 
+						var img = "image"+(i+1);
 						var data = {};
 						data[img] = url;
 						console.log(url);
