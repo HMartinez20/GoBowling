@@ -161,17 +161,18 @@ title: Home
 				
 				// Create storage ref
 				var storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
-
-				var task = storageRef.put(fileList.files[i], metaData);
+				
+				// Upload
+				//var task = storageRef.put(fileList.files[i], metaData);
 				
 				
-// 				// Upload Image
-// 				var task = storageRef.put(fileList.files[i], metaData)
-// 				.then(function(snapshot){
-// 					console.log(snapshot.getDownloadURL());
-// 				});
+				// Upload Image
+				var task = storageRef.put(fileList.files[i], metaData)
+				.then(function(snapshot){
+					console.log(snapshot.getDownloadURL());
+				});
 				
-// 				//Upload progress
+				//Upload progress
 // 				task.on('state_changed',
 // 					function progress(snapshot){},
 // 					function error(err){ alert(err); },
