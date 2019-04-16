@@ -163,16 +163,17 @@ title: Home
 
 				// Upload Image
 				storageRef.put(fileList.files[i], metaData).getDownloadURL()
-					.then(function(url) {
-						alert(fileName+"\nUploaded!"); 
-						var img = "image"+(i+1);
-						var data = {};
-						data[img] = url;
-						console.log(url);
-						var docRef = db.collection("items").doc(id);
-						var mergeInfo = docRef.set( data, {merge:true} );
-					}).catch(function(error){ console.log("imgRef...No image found..."); });
-				);
+				.then(function(url) {
+					alert(fileName+"\nUploaded!"); 
+					var img = "image"+(i+1);
+					var data = {};
+					data[img] = url;
+					console.log(url);
+					var docRef = db.collection("items").doc(id);
+					var mergeInfo = docRef.set( data, {merge:true} );
+				}).catch(function(error){ 
+					console.log("imgRef...No image found..."); 
+				});
 				
 				//Upload progress
 // 				task.on('state_changed',
