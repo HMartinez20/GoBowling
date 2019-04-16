@@ -182,7 +182,8 @@ title: Home
 						alert(fileName+"\nUploaded!"); 
 						storageRef.getDownloadURL().then(function(url) {
 							var img = "image"+(i+1);
-							var data = { img: url };
+							var data = {};
+							data[img] = url;
 							console.log(url);
 							var docRef = db.collection("items").doc(id);
 							var mergeInfo = docRef.set( data, {merge:true} );
