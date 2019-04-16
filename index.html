@@ -164,7 +164,7 @@ title: Home
 				
 				// Upload Image
 				//var task = storageRef.put(fileList.files[i], metaData);
-				uploadImg(fileList.files[i], metaData, fileName);
+				uploadImg(fileList.files[i], metaData, id, fileName);
 				
 				//Upload progress
 // 				task.on('state_changed',
@@ -186,7 +186,7 @@ title: Home
 		alert("Posted!");
 	}
 	
-	function uploadImg(file, metaData, fileName){
+	function uploadImg(file, metaData, id, fileName){
 		var storageRef = storage.ref('posts/'+currentUser+'/'+id+'/'+ fileName);  // Reference to WHERE the image will be stored
 		var task = storageRef.put(file, metaData);
 		task.on('state_changed', 
