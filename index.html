@@ -188,7 +188,7 @@ title: Home
 				var task, imgURL = "";
 				if(doc.data().image1){
 					var imgRef = storage.ref('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
-					console.log('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
+					console.log('posts/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
 					imgRef.getDownloadURL().then(function(url) {
 						console.log(url);
 						imgURL = url;
