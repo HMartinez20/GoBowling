@@ -100,6 +100,8 @@ title: Home
   <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">Create New Posting</a>
 </div>
 <!--....THIS IS THE END OF CODE FOR THE CREATE NEW POSTING BUTTON...-->
+<br>
+<p id="text"></p>
 </body>
 </html>
 <script type="text/javascript">
@@ -185,12 +187,13 @@ title: Home
 		db.collection("items").get()
 		.then(function(querySnapshot){
 			querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
-				var task, imgURL = "";
+				var imgURL = "";
 				if(doc.data().image1){
 					var imgRef = storage.ref('posts/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
 					imgRef.getDownloadURL().then(function(url) {
 						console.log(url);
 						imgURL = url;
+						document.getElementById("text").innerHTML = url;
 					}).catch(function(error){ console.log("No image found..."); });
 				}
 				console.log("ITEM");
