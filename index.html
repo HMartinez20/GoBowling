@@ -189,7 +189,7 @@ title: Home
 				var imgURL = "";
 				console.log(doc.data().image1);
 				if(doc.data().image1){
-					storage.ref('items/'+doc.user+'/'+doc.id+'/'+doc.image1).getDownloadURL().then(function(url) {
+					storage.ref('items/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1).getDownloadURL().then(function(url) {
 						console.log(url);
 						imgURL = url;
 					}).catch(function(error){ console.log("No image found..."); });
