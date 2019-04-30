@@ -199,10 +199,8 @@ title: Home
 		db.collection("items").get()
 		.then(function(querySnapshot){
 			querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
-				var images = ["image1"];
 				var imgURL = "";
 				if(doc.data().image1){
-					console.log(doc.data().images[0]);
 					var imgRef = storage.ref('posts/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
 					imgRef.getDownloadURL().then(function(url) {
 						console.log(url);
