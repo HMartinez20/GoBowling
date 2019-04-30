@@ -201,7 +201,6 @@ title: Home
 			querySnapshot.forEach(function(doc){ // doc.data() is never undefined for query doc snapshots
 				var imgURL = "";
 				if(doc.data().image1){
-					console.log(doc.data().[image+"1"]);
 					var imgRef = storage.ref('posts/'+doc.data().user+'/'+doc.id+'/'+doc.data().image1);
 					imgRef.getDownloadURL().then(function(url) {
 						console.log(url);
@@ -214,6 +213,7 @@ title: Home
 				console.log("\tItem No.: "+doc.id);
 				console.log("\tItem Title: "+doc.data().title);
 				console.log("\tItem Price: "+doc.data().["price"]);
+				console.log("\tItem Price: "+doc.data().[price]);
 				console.log("END ITEM");
 			});
 		});
